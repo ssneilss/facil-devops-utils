@@ -91,9 +91,10 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 						done <- true
 					}
 				}()
-			}
 
-			<-done
+				<-done
+
+			}
 
 		}
 	}
