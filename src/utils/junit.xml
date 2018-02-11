@@ -1,0 +1,71 @@
+<testsuites name="jest tests">
+  <testsuite name="apis" errors="0" failures="0" skipped="0" timestamp="2018-02-10T11:25:24" time="8.873" tests="11">
+    <testcase classname="apis should get video" name="apis should get video" time="0.329">
+    </testcase>
+    <testcase classname="apis should get sources" name="apis should get sources" time="1.178">
+    </testcase>
+    <testcase classname="apis should get group" name="apis should get group" time="0.451">
+    </testcase>
+    <testcase classname="apis should get organizations should return null if no user exists" name="apis should get organizations should return null if no user exists" time="0.002">
+    </testcase>
+    <testcase classname="apis should get organizations should return [] if user belongs to no organization" name="apis should get organizations should return [] if user belongs to no organization" time="0.043">
+    </testcase>
+    <testcase classname="apis should get organizations should return 1 organization if user belongs to 1 organization" name="apis should get organizations should return 1 organization if user belongs to 1 organization" time="0.067">
+    </testcase>
+    <testcase classname="apis should get organizations should return 2 organization if user belongs to 2 organizations" name="apis should get organizations should return 2 organization if user belongs to 2 organizations" time="0.08">
+    </testcase>
+    <testcase classname="apis should verify priviliges" name="apis should verify priviliges" time="0.035">
+    </testcase>
+    <testcase classname="apis should get messages" name="apis should get messages" time="0.06">
+    </testcase>
+    <testcase classname="apis should register classroom" name="apis should register classroom" time="0.218">
+    </testcase>
+    <testcase classname="apis should add subscriber" name="apis should add subscriber" time="0.07">
+    </testcase>
+  </testsuite>
+  <testsuite name="createInteraction" errors="0" failures="1" skipped="0" timestamp="2018-02-10T11:25:33" time="5.819" tests="6">
+    <testcase classname="createInteraction should create interaction" name="createInteraction should create interaction" time="0.372">
+      <failure>Error: expect(received).toEqual(expected)
+
+Expected value to equal:
+  ObjectContaining {&quot;action&quot;: &quot;comment&quot;, &quot;from&quot;: &quot;user2&quot;, &quot;object&quot;: &quot;comment&quot;, &quot;to&quot;: &quot;user1&quot;}
+Received:
+  {&quot;action&quot;: &quot;comment&quot;, &quot;createdAt&quot;: 2018-02-10T11:25:36.024Z, &quot;from&quot;: &quot;user3&quot;, &quot;id&quot;: &quot;f00ca679-3a4a-4a71-8cad-d95f13ecaa05&quot;, &quot;isRead&quot;: false, &quot;object&quot;: &quot;comment&quot;, &quot;to&quot;: &quot;user1&quot;, &quot;type&quot;: &quot;interaction&quot;, &quot;updatedAt&quot;: 2018-02-10T11:25:36.024Z}
+
+Difference:
+
+- Expected
++ Received
+
+-ObjectContaining {
++NewModel {
+   &quot;action&quot;: &quot;comment&quot;,
+-  &quot;from&quot;: &quot;user2&quot;,
++  &quot;createdAt&quot;: 2018-02-10T11:25:36.024Z,
++  &quot;from&quot;: &quot;user3&quot;,
++  &quot;id&quot;: &quot;f00ca679-3a4a-4a71-8cad-d95f13ecaa05&quot;,
++  &quot;isRead&quot;: false,
+   &quot;object&quot;: &quot;comment&quot;,
+   &quot;to&quot;: &quot;user1&quot;,
++  &quot;type&quot;: &quot;interaction&quot;,
++  &quot;updatedAt&quot;: 2018-02-10T11:25:36.024Z,
+ }
+    at Object.&lt;anonymous&gt; (/Users/Neil/facil/src/db/data/mutations/createInteraction.test.js:62:21)
+    at Generator.next (&lt;anonymous&gt;)
+    at step (/Users/Neil/facil/src/db/data/mutations/createInteraction.test.js:7:448)
+    at /Users/Neil/facil/src/db/data/mutations/createInteraction.test.js:7:608
+    at &lt;anonymous&gt;
+    at process._tickDomainCallback (internal/process/next_tick.js:228:7)</failure>
+    </testcase>
+    <testcase classname="createInteraction should create interaction and get score" name="createInteraction should create interaction and get score" time="0.65">
+    </testcase>
+    <testcase classname="createInteraction should create interaction only once and get score" name="createInteraction should create interaction only once and get score" time="0.355">
+    </testcase>
+    <testcase classname="createInteraction should create like interaction let the receiver user get the score" name="createInteraction should create like interaction let the receiver user get the score" time="0.534">
+    </testcase>
+    <testcase classname="createInteraction should create like interaction let the receiver user will not get the score again" name="createInteraction should create like interaction let the receiver user will not get the score again" time="0.57">
+    </testcase>
+    <testcase classname="createInteraction should add parent domain ids correctly" name="createInteraction should add parent domain ids correctly" time="0.039">
+    </testcase>
+  </testsuite>
+</testsuites>
