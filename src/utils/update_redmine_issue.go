@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -70,6 +71,16 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 
 				go func() {
 					if issueID != "" {
+
+						issueIDInt, _ := strconv.Atoi(issueID)
+						issue, _ := redmineClient.Issue(issueIDInt)
+
+						if statusID := issue.Status.Id; statusID > 11 {
+							fmt.Println("Couldn't update redmine issue due to fasle status id:", statusID)
+							done <- true
+							return
+						}
+
 						fmt.Println("Start updating redmine issue:", issueID)
 						APIEndpoint := endpoint + "/issues/" + issueID + ".json?key=" + r.RedmineAPIKey
 						str, _ := json.Marshal(&issueUpdateRequest{
