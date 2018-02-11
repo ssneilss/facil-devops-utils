@@ -97,6 +97,4 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 
 		}
 	}
-
-	defer cancel()
 }
