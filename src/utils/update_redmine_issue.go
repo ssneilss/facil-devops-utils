@@ -23,9 +23,15 @@ type UpdateRedmineIssueRequest struct {
 	AssignedToID  int
 }
 
+type issueCustomField struct {
+	ID    string `json:"id"`
+	Value string `json:"value"`
+}
+
 type issueRequestBody struct {
-	StatusID     int `json:"status_id"`
-	AssignedToID int `json:"assigned_to_id"`
+	StatusID     int                 `json:"status_id"`
+	AssignedToID int                 `json:"assigned_to_id"`
+	CustomFields []*issueCustomField `json:"custom_fields"`
 }
 
 type issueUpdateRequest struct {
@@ -61,7 +67,9 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 	regex, _ := regexp.Compile(`http:\/\/redmine\.bonio\.com\.tw\/issues\/(\w*)`)
 
 	for _, pr := range prs.Issues {
-		fmt.Println("Found related PR:", pr.GetURL())
+		prURL := pr.GetHTMLURL()
+		fmt.Println("Found related PR:", prURL)
+
 		matches := regex.FindAllStringSubmatch(pr.GetBody(), -1)
 		if matches != nil {
 			done := make(chan bool)
@@ -87,6 +95,9 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 							Issue: &issueRequestBody{
 								StatusID:     r.StatusID,
 								AssignedToID: r.AssignedToID,
+								CustomFields: []*issueCustomField{
+									{ID: "1", Value: prURL},
+								},
 							},
 						})
 						req, err := http.NewRequest("PUT", APIEndpoint, strings.NewReader(string(str)))
