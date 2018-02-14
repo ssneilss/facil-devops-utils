@@ -8,6 +8,8 @@ import (
 
 func main() {
 	var (
+		Owner         string
+		Repo          string
 		CommitID      string
 		StatusID      int
 		AssignedToID  int
@@ -15,6 +17,8 @@ func main() {
 		RedmineAPIKey string
 	)
 
+	flag.StringVar(&Owner, "owner", "", "Github owner")
+	flag.StringVar(&Repo, "repo", "", "Github repository name")
 	flag.StringVar(&CommitID, "commit-id", "", "Commit id on Github")
 	flag.IntVar(&StatusID, "status-id", 0, "Status id to update on Redmine")
 	flag.IntVar(&AssignedToID, "assigned-to-id", 0, "Assignee id on Redmine")

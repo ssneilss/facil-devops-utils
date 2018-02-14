@@ -16,6 +16,8 @@ import (
 
 // UpdateRedmineIssueRequest specifies the params to get pull request
 type UpdateRedmineIssueRequest struct {
+	Owner         string
+	Repo          string
 	CommitID      string
 	AccessToken   string
 	RedmineAPIKey string
@@ -52,9 +54,7 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 
 	client := InitGithubClient(ctx, r.AccessToken)
 
-	owner, repo := "BonioTw", "Facil"
-
-	commit, _, _ := client.Repositories.GetCommit(ctx, owner, repo, r.CommitID)
+	commit, _, _ := client.Repositories.GetCommit(ctx, r.Owner, r.Repo, r.CommitID)
 
 	defer cancel()
 
