@@ -12,6 +12,7 @@ type CreateReviewRequest struct {
 	PullRequestNumber int
 	Body              string
 	Event             string
+	CommitID          string
 	AccessToken       string
 }
 
@@ -39,8 +40,9 @@ func CreateReview(r *CreateReviewRequest) (*github.PullRequestReview, error) {
 		"BonioTw",
 		"Facil",
 		&github.PullRequestReviewRequest{
-			Body:  &r.Body,
-			Event: &r.Event,
+			Body:     &r.Body,
+			Event:    &r.Event,
+			CommitID: &r.CommitID,
 		}
 
 	var (

@@ -1,22 +1,33 @@
 package main
 
 import (
-	"os"
-	"strconv"
-
-	"../utils"
+	"facil-devops-utils/src/utils"
+	"flag"
 )
 
 func main() {
-	if len(os.Args) > 4 {
-		pullRequestNumber, _ := strconv.Atoi(os.Args[1])
-		body, _ := utils.ParseJunitText(os.Args[2])
-		args := &utils.CreateReviewRequest{
-			PullRequestNumber: pullRequestNumber,
-			Body:              body,
-			Event:             os.Args[3],
-			AccessToken:       os.Args[4],
-		}
-		utils.CreateReview(args)
+	var (
+		PullRequestNumber int
+		JunitPath         string
+		CommitID          string
+		Event             string
+		AccessToken       string
+	)
+
+	flag.IntVar(&PullRequestNumber, "pr", 0, "PullRequest number")
+	flag.StringVar(&JunitPath, "junit", "junit.xml", "Github repository name")
+	flag.StringVar(&CommitID, "commit-id", "", "Commit id on Github")
+	flag.StringVar(&Event, "event", "COMMENT", "Event type")
+	flag.StringVar(&AccessToken, "token", "", "Access token of Github")
+	flag.Parse()
+
+	body, _ := utils.ParseJunitText(JunitPath)
+	args := &utils.CreateReviewRequest{
+		PullRequestNumber: PullRequestNumber,
+		Body:              body,
+		CommitID:          CommitID,
+		Event:             Event,
+		AccessToken:       AccessToken,
 	}
+	utils.CreateReview(args)
 }
