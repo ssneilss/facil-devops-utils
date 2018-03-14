@@ -10,7 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/go-github/github"
 	"github.com/mattn/go-redmine"
 )
 
@@ -52,21 +51,20 @@ func UpdateRedmineIssue(r *UpdateRedmineIssueRequest) {
 	)
 	ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 
-	client := InitGithubClient(ctx, r.AccessToken)
-
-	commit, _, _ := client.Repositories.GetCommit(ctx, r.Owner, r.Repo, r.CommitID)
-
 	defer cancel()
-
-	sha := commit.GetSHA()
-
-	prs, _, _ := client.Search.Issues(ctx, sha, &github.SearchOptions{})
 
 	endpoint := "http://redmine.bonio.com.tw"
 	redmineClient := redmine.NewClient(endpoint, r.RedmineAPIKey)
 	regex, _ := regexp.Compile(`http:\/\/redmine\.bonio\.com\.tw\/issues\/(\w*)`)
 
-	for _, pr := range prs.Issues {
+	prs := ListPRs(ctx, &ListPRInput{
+		AccessToken: r.AccessToken,
+		Owner:       r.Owner,
+		Repo:        r.Repo,
+		CommitID:    r.CommitID,
+	})
+
+	for _, pr := range prs {
 		prURL := pr.GetHTMLURL()
 		fmt.Println("Found related PR:", prURL)
 
